@@ -4,6 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>Coming Soon </title>
 
+<style>
+.subscribe-form-wrapper button {
+    padding: 10px 35px;
+    border-radius: 20px;
+    border: 0;
+    height: 58px;
+    font-size:18pt !important;
+    outline: none;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #2b2927;
+    transition-duration: 0.4s;
+
+}
+</style>
+
 <!--CSS-->
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/bootstrap-light.css">
@@ -16,9 +34,29 @@
 <script src="js/jquery.countdown.js"></script>
 <script>
 $(function () {
-	$('#defaultCountdown').countdown({until: new Date(2018, 2-1, 25)}); 
-	//Replace above date with your own, to find out more visit http://keith-wood.name/countdown.html
-});
+        $('#defaultCountdown').countdown({until: new Date(2019, 7, 4)}); 
+        //Replace above date with your own, to find out more visit http://keith-wood.name/countdown.html
+        });
+
+function send(){
+    if(validateEmail($('#email').val())){
+        $.get( "subscrib.php?name=" + $('#name').val() + "&email=" + $('#email').val() + "&msg=" + $('#msg').val(), function( data   ) {
+                $( ".result"   ).html( data   );
+                $( ".form"   ).html( '');
+
+                }  );
+    }else{
+        $('#email-err').show();
+
+    }
+
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 </script>
 <!--/JS-->
 
@@ -32,18 +70,64 @@ $(function () {
 
 <!--WRAP-->
 <div id="wrap">
-	<!--CONTAINER-->
-	<div class="container">
-		<img src="images/paperplane.png" alt="Paper Plane" class="image-align" />
-		<h1>
-			<span>We are</span><br/>
-			Reaching For <span class="yellow">The Moon.</span>
-		</h1>
-		<p>
+    <!--CONTAINER-->
+    <div class="container">
+        <img src="images/paperplane.png" alt="Paper Plane" class="image-align" />
+        <h1>
+            <span>We are</span><br/>
+            Reaching For <span class="yellow">The Moon.</span>
+        </h1>
+        <p>
         We are in the process in making it happen, stay tunned
-		<div id="defaultCountdown"></div>
-	</div>
-	<!--/CONTAINER-->
+        <div id="defaultCountdown"></div>
+        <div class="row">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-4 result">
+
+            </div>
+        </div>
+        <div class="text-center subscribe-form-wrapper form">
+            <form  class="">
+                Stay tunned
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subscriberName">name</label>
+                            <input type="text" id="name" name="subscriberName" class="form-control" placeholder="name" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subscriberEmail">email</label>
+                            <input type="text" id="email" name="subscriberEmail" class="form-control " placeholder="email" />
+                            <span id="email-err" style="display:none"> Please enter valid email  </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <br />
+                        <button onclick="send()" type="button" class="btn btn-default pull-right">Subscribe</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subscriberEmail">Message:(optional)</label>
+                                <input type="text" id="msg" name="msg" class="form-control " />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--/CONTAINER-->
 </div>
 <!--/WRAP-->
 
